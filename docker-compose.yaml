@@ -16,5 +16,6 @@ services:
 
 
   # commands:
-  # 1. Docker ps | Docker compose ps
-  # 2. Docker compose up
+  # 1. docker ps | docker compose ps
+  # 2. docker compose up
+  # 3. docker build -t omerfarooq:php81 -f php/Dockerfile . ## This will build the image using Dockerfile
