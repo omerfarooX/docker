@@ -4,6 +4,11 @@ services:
     image: nginx:latest
     ports:
       - "1080:80"
+  
+  app:
+    build:
+      dockerfile: ./php/Dockerfile
+        
 
   #php
   #mysql
