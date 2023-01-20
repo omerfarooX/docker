@@ -7,15 +7,33 @@ services:
     volumes:
       - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
   
+  #php
   app:
     build:
       dockerfile: ./php/Dockerfile
     volumes:
       - ./app:/app
 
-  #php
   #mysql
+  db:
+      image: mysql:8.0
+      volumes:
+          - mysqldata:/var/lib/mysql
+      ports:
+          - "3305:3306"
+      restart: unless-stopped # This will restart if things go wrong but will stop when asked
+      environment:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_USER: user
+          MYSQL_PASSWORD: secret
+          MYSQL_DATABASE: docker
+
   #redis
+
+
+# docker will decide the best place to host this data
+volumes:
+  mysqldata:
 
 
   # commands:
