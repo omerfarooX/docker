@@ -1,8 +1,7 @@
 services:
   #nginx
   web: 
-    build: 
-      dockerfile: ./nginx/Dockerfile
+    image: nginx:latest
     ports:
       - "1080:80"
     volumes:
@@ -12,12 +11,16 @@ services:
   app:
     build:
       dockerfile: ./php/Dockerfile
+    volumes:
+      - ./app:/var/www/html
 
   #mysql
   db:
       image: mysql:8.0
       volumes:
           - mysqldata:/var/lib/mysql
+      ports:
+          - "3305:3306"
       restart: unless-stopped # This will restart if things go wrong but will stop when asked
       environment:
           MYSQL_ROOT_PASSWORD: secret
@@ -40,3 +43,5 @@ volumes:
   # 4. docker images ## shows the built images
   # 5. docker exec -it [container] sh ## logs into the container shell
   # 6. docker compose up --build -d ## This rebuilds the image again, and needs to be run after composer is setup
+  # 7. docker compose down -v ## stops container and also removes volumes
+  # 8. docker compose -f docker-compose.dev.yaml up --build -d # to run docker compose dev file.
