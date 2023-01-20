@@ -12,7 +12,7 @@ services:
     build:
       dockerfile: ./php/Dockerfile
     volumes:
-      - ./app:/app
+      - ./app:/var/www/html
 
   #mysql
   db:
@@ -42,3 +42,4 @@ volumes:
   # 3. docker build -t omerfarooq:php81 -f php/Dockerfile . ## This will build the image using Dockerfile
   # 4. docker images ## shows the built images
   # 5. docker exec -it [container] sh ## logs into the container shell
+  # 6. docker compose up --build -d ## This rebuilds the image again, and needs to be run after composer is setup
