@@ -8,3 +8,8 @@ services:
   #php
   #mysql
   #redis
+
+
+  # commands:
+  # 1. Docker ps | Docker compose ps
+  # 2. Docker compose up
