@@ -10,10 +10,16 @@ services:
   #php
   app:
     build:
-      dockerfile: ./php/Dockerfile
+        dockerfile: ./php/Dockerfile
     volumes:
-      - ./app:/var/www/html
-
+        - ./app:/var/www/html
+    environment:
+        MYSQL_HOST: db
+        MYSQL_PORT: ${MYSQL_PORT}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+          
   #mysql
   db:
       image: mysql:8.0
@@ -23,11 +29,11 @@ services:
           - "3305:3306"
       restart: unless-stopped # This will restart if things go wrong but will stop when asked
       environment:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_USER: user
-          MYSQL_PASSWORD: secret
-          MYSQL_DATABASE: docker
-
+          MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+          MYSQL_DATABASE: ${MYSQL_DATABASE} 
+          
   #redis
 
 
