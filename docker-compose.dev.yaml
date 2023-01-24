@@ -19,6 +19,8 @@ services:
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         MYSQL_DATABASE: ${MYSQL_DATABASE}
         MYSQL_USER: ${MYSQL_USER}
+        REDIS_HOST: cache
+        REDIS_PORT: ${REDIS_PORT}
           
   #mysql
   db:
@@ -35,6 +37,8 @@ services:
           MYSQL_DATABASE: ${MYSQL_DATABASE} 
           
   #redis
+  cache:
+      image: redis:latest
 
 
 # docker will decide the best place to host this data
@@ -51,3 +55,5 @@ volumes:
   # 6. docker compose up --build -d ## This rebuilds the image again, and needs to be run after composer is setup
   # 7. docker compose down -v ## stops container and also removes volumes
   # 8. docker compose -f docker-compose.dev.yaml up --build -d # to run docker compose dev file.
+  # 9. docker compose -f docker-compose.dev.yaml up --env-file .env -d # to run docker compose dev file with multiple env files.
+  
