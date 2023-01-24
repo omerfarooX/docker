@@ -11,8 +11,10 @@ services:
   app:
     build:
         dockerfile: ./php/Dockerfile
+        target: app_dev
     volumes:
         - ./app:/var/www/html
+        - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
     environment:
         MYSQL_HOST: db
         MYSQL_PORT: ${MYSQL_PORT}
@@ -21,7 +23,11 @@ services:
         MYSQL_USER: ${MYSQL_USER}
         REDIS_HOST: cache
         REDIS_PORT: ${REDIS_PORT}
-          
+        XDEBUG_MODE: "${XDEBUG_MODE:-off}" # See https://xdebug.org/docs/all_settings#mode
+    extra_hosts:
+        # Ensure that host.docker.internal is correctly defined on Linux
+        - host.docker.internal:host-gateway
+
   #mysql
   db:
       image: mysql:8.0
@@ -56,4 +62,4 @@ volumes:
   # 7. docker compose down -v ## stops container and also removes volumes
   # 8. docker compose -f docker-compose.dev.yaml up --build -d # to run docker compose dev file.
   # 9. docker compose -f docker-compose.dev.yaml up --env-file .env -d # to run docker compose dev file with multiple env files.
-  
+  # 10. XDEBUG_MODE=debug docker compose -f docker-compose.dev.yaml up -d # To run xdebug in debug mode
