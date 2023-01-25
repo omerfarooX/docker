@@ -64,3 +64,6 @@ volumes:
   # 9. docker compose -f docker-compose.dev.yaml --env-file .env.local up --build -d # to run docker compose dev file with specific env file
   # 10. docker compose -f docker-compose.dev.yaml down # to put specific docker compose down
   # 11. XDEBUG_MODE=debug docker compose -f docker-compose.dev.yaml up -d # To run xdebug in debug mode
+  # 12. docker login -u warlox414
+  # 13. docker build --target app -t warlox414/php-docker:1.0 -f ./php/Dockerfile . # This will build the image with target app
+  # 14. docker push warlox414/php-docker:1.0 # This will push the image to docker hub
