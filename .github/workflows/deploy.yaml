@@ -1,4 +1,4 @@
-name: TranslateThis
+name: DockerProject
 on:
     push:
         branches:
