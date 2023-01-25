@@ -1,9 +1,10 @@
 services:
   #nginx
   web: 
-    image: nginx:latest
-    ports:
-      - "1080:80"
+    build: 
+        dockerfile: ./nginx/Dockerfile
+    #ports:
+    #   - "1080:80"
     volumes:
       - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
   
@@ -16,36 +17,20 @@ services:
         - ./app:/var/www/html
         - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
     environment:
-        MYSQL_HOST: db
-        MYSQL_PORT: ${MYSQL_PORT}
-        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-        MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_USER: ${MYSQL_USER}
-        REDIS_HOST: cache
-        REDIS_PORT: ${REDIS_PORT}
+        #MYSQL_HOST: db
+        #MYSQL_PORT: ${MYSQL_PORT}
+        #MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        #MYSQL_DATABASE: ${MYSQL_DATABASE}
+        #MYSQL_USER: ${MYSQL_USER}
+        #REDIS_HOST: cache
+        #REDIS_PORT: ${REDIS_PORT}
         XDEBUG_MODE: "${XDEBUG_MODE:-off}" # See https://xdebug.org/docs/all_settings#mode
-    extra_hosts:
-        # Ensure that host.docker.internal is correctly defined on Linux
-        - host.docker.internal:host-gateway
-
+    
   #mysql
   db:
-      image: mysql:8.0
-      volumes:
-          - mysqldata:/var/lib/mysql
       ports:
           - "3305:3306"
       restart: unless-stopped # This will restart if things go wrong but will stop when asked
-      environment:
-          MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-          MYSQL_USER: ${MYSQL_USER}
-          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-          MYSQL_DATABASE: ${MYSQL_DATABASE} 
-          
-  #redis
-  cache:
-      image: redis:latest
-
 
 # docker will decide the best place to host this data
 volumes:
@@ -68,4 +53,3 @@ volumes:
   # 13. docker build --target app -t warlox414/php-docker:1.0 -f ./php/Dockerfile . # This will build the image with target app
   # 14. docker push warlox414/php-docker:1.0 # This will push the image to docker hub
   # 15. Github actions: goto settings > secrets > actions. Create repository secret named DOCKER_USERNAME & DOCKER_PASSWORD. Add docker credentials.
-  
