@@ -67,3 +67,5 @@ volumes:
   # 12. docker login -u warlox414
   # 13. docker build --target app -t warlox414/php-docker:1.0 -f ./php/Dockerfile . # This will build the image with target app
   # 14. docker push warlox414/php-docker:1.0 # This will push the image to docker hub
+  # 15. Github actions: goto settings > secrets > actions. Create repository secret named DOCKER_USERNAME & DOCKER_PASSWORD. Add docker credentials.
+  
